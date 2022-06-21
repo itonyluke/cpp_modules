@@ -1,0 +1,34 @@
+SRCS						=	main.cpp \
+								Bureaucrat.cpp \
+
+INCL						=	Bureaucrat.hpp \
+
+OBJS						= $(SRCS:.cpp=.o)
+
+COMPILER					= clang++
+
+REMOVE_DIRECTORY_ENTRIES	= rm -f
+
+COMPILE_FLAGS				= -Wall -Wextra -Werror -std=c++98 -pedantic-errors -I.
+
+PROGRAM_NAME				= mommy_when_i_grow_up_i_want_to_be_a_bureaucrat
+
+JIC_A_OUT					= a.out
+
+%.o: %.cpp					${INCL}
+								$(COMPILER) $(COMPILE_FLAGS) -I. -c $< -o ${<:.cpp=.o}
+
+.PHONY:						all clean fclean re
+
+all:						$(PROGRAM_NAME)
+
+$(PROGRAM_NAME):			$(OBJS) $(INCL)
+								$(COMPILER) $(COMPILE_FLAGS) $(OBJS) -o $(PROGRAM_NAME)
+
+clean:
+								$(REMOVE_DIRECTORY_ENTRIES) $(OBJS) $(JIC_A_OUT)
+
+fclean:						clean
+								$(REMOVE_DIRECTORY_ENTRIES) $(PROGRAM_NAME)
+
+re:							fclean $(PROGRAM_NAME)
